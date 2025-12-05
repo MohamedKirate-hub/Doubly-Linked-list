@@ -91,6 +91,28 @@ void ft_push_a(Node **a, Node **b)
     ft_add_front(a, (*b) -> data);
     ft_delete_front(b);
 }
+void ft_push_b(Node **a, Node **b)
+{
+    ft_add_front(b, (*a) -> data);
+    ft_delete_front(a);
+}
+
+void ft_rotate(Node **head)
+{
+    int int_temp = 0;
+    Node *struct_temp = NULL;
+    struct_temp = (*head);
+    if (head == NULL || *head == NULL)
+        return;
+    struct_temp = (*head);
+    while (struct_temp -> next != NULL)
+    {
+        int_temp = struct_temp -> data;
+        struct_temp -> data = struct_temp -> next -> data;
+        struct_temp -> next -> data = int_temp;
+        struct_temp = struct_temp -> next;
+    }
+}
 
 int main()
 {
@@ -100,16 +122,6 @@ int main()
     ft_add_front(&head, 20);
     ft_add_front(&head, 10);
     ft_print_list(head);
-
-    Node *head2 = NULL;
-    ft_add_front(&head2, 41);
-    ft_add_front(&head2, 32);
-    ft_add_front(&head2, 23);
-    ft_add_front(&head2, 14);
-
-    ft_print_list(head2);
-
-    push_a(&head, &head2);
+    ft_rotate(&head);
     ft_print_list(head);
-    ft_print_list(head2);
 }
