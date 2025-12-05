@@ -68,11 +68,55 @@ void ft_print_list(Node *head)
 void ft_swap_list(Node **head)
 {
     int temp = 0;
-    if (!*head || (*head) -> next == NULL)
+    if (*head == NULL || (*head) -> next == NULL)
         return;
     temp = (*head) -> data;
     (*head) -> data = (*head) -> next -> data;
     (*head) -> next -> data = temp;
+}
+void ft_rotate_list(Node **head)
+{
+    Node *struct_temp = NULL;
+    int int_temp = 0;
+
+    struct_temp = (*head);
+    if (struct_temp == NULL || struct_temp ->next == NULL)
+        return ;
+    while (struct_temp -> next != NULL)
+    {
+        int_temp = struct_temp -> data;
+        struct_temp -> data = struct_temp -> next -> data;
+        struct_temp -> next -> data = int_temp;
+        struct_temp = struct_temp -> next;
+    }
+}
+
+int ft_list_size(Node *head)
+{
+    int i = 0;
+    while (head != NULL)
+    {
+        i++;
+        head = head -> next;
+    }
+    return (i);
+}
+
+void ft_reverse_list(Node **head)
+{
+    Node *cur = *head;
+    Node *temp = NULL;
+    if (*head == NULL || head == NULL)
+        return ;
+    while (cur != NULL)
+    {
+        temp = cur -> next;
+        cur -> next = cur -> prev;
+        cur -> prev = temp;
+        if (cur -> prev == NULL)
+            *head = cur;
+        cur = cur -> prev;
+    }
 }
 
 int main()
@@ -83,9 +127,7 @@ int main()
     ft_add_front(&head, 30);
     ft_add_front(&head, 20);
     ft_add_front(&head, 10);
-    ft_swap_list(&head);
-    ft_swap_list(&head);
-
+    //ft_swap_list(&head);
+    //ft_reverse_list(&head);
     ft_print_list(head);
-
 }
